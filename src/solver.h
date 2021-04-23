@@ -33,7 +33,7 @@ public:
             const auto [task, no_more_issues] = issue_pipe_.pop(issues_count);
             if(!task.empty())
             {
-                std::vector<SquareEquanationSolution> result{};
+                std::vector<SquareEquationSolution> result{};
                 for(const auto& issue : task)
                 {
                     result.push_back({issue, getRoots(issue)});
@@ -60,44 +60,50 @@ private:
     ///
     /// @param[in] issue square equation problem to solve
     /// @returns roots of the equation (from 0 to 2)
-    static std::vector<double> getRoots(const SquareEquanationIssue& issue)
+    static std::vector<double> getRoots(const SquareEquationIssue& issue)
     {
         std::vector<double> result{};
+        auto near_0 = [comparison_precision](double val) {return std::fabs(val) < comparison_precision;};
 
-        if((std::fabs(issue.a) < comparison_precision) && (std::fabs(issue.b) < comparison_precision))
+        if(near_0(issue.a))
         {
-            // not an equation, no roots
-        }
-        else if((std::fabs(issue.a) < comparison_precision) && (std::fabs(issue.b) > comparison_precision))
-        {
-            // case of linear equation
-            result.push_back(-issue.c / issue.b);
-        }
-        else if((std::fabs(issue.a) > comparison_precision) && (std::fabs(issue.b) > comparison_precision) && (std::fabs(issue.c) < comparison_precision))
-        {
-            // case of simplified square equation
-            result.push_back(0.0);
-            result.push_back(-issue.b / issue.a);
-        }
-        else
-        {
-            const double descriminant = issue.b*issue.b - 4*issue.a*issue.c;
-
-            // case of regular square equation
-            if(std::fabs(descriminant) < comparison_precision)
+            if(near_0(issue.b))
             {
-                // one root case
-                result.push_back(-issue.b / (2.0 * issue.a));
-            }
-            else if(descriminant < 0.0)
-            {
-                // no roots case, nothing to do
+                // not an equation, no roots
             }
             else
             {
-                // two roots case
-                result.push_back((-issue.b + std::sqrt(descriminant))/ (2.0 * issue.a));
-                result.push_back((-issue.b - std::sqrt(descriminant))/ (2.0 * issue.a));
+                // case of linear equation
+                result.push_back(-issue.c / issue.b);
+            }
+        }
+        else
+        {
+            if(!near_0(issue.b) && near_0(issue.c))
+            {
+                // case of simplified square equation
+                result.push_back(0.0);
+                result.push_back(-issue.b / issue.a);
+            }
+            else
+            {
+                // case of regular square equation
+                const double descriminant = issue.b*issue.b - 4*issue.a*issue.c;
+                if(near_0(descriminant))
+                {
+                    // one root case
+                    result.push_back(-issue.b / (2.0 * issue.a));
+                }
+                else if(descriminant < 0.0)
+                {
+                    // no roots case
+                }
+                else
+                {
+                    // two roots case
+                    result.push_back((-issue.b + std::sqrt(descriminant))/ (2.0 * issue.a));
+                    result.push_back((-issue.b - std::sqrt(descriminant))/ (2.0 * issue.a));
+                }
             }
         }
 

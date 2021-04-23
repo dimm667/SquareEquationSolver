@@ -10,14 +10,13 @@
 ///
 /// Contains vector number of roots, there could be 0, 1 or 2 roots depends on issue.
 /// Contains also information about initial issue
-struct SquareEquanationSolution
+struct SquareEquationSolution
 {
-    SquareEquanationIssue issue{};
+    SquareEquationIssue issue{};
     std::vector<double> roots{};
-    friend std::ostream& operator<< (std::ostream& os, const SquareEquanationSolution& val);
 };
 
-std::ostream& operator<< (std::ostream& os, const SquareEquanationSolution& val)
+std::ostream& operator<< (std::ostream& os, const SquareEquationSolution& val)
 {
     os << val.issue << " => ";
 
@@ -25,12 +24,12 @@ std::ostream& operator<< (std::ostream& os, const SquareEquanationSolution& val)
     {
         case 0: os << "no roots"; break;
         case 1: os << "(" << val.roots[0] << ")"; break;
-        case 2: os << "(" << val.roots[0] << " " << val.roots[1] << ")"; break;
-        default: os << "wrong roots";
+        case 2: os << "(" << val.roots[0] << ", " << val.roots[1] << ")"; break;
+        default: os << "calculation error occurs";
     }
     return os;
 }
 
-using SolutionPipe = ProducerConsumerPipe<SquareEquanationSolution>;
+using SolutionPipe = ProducerConsumerPipe<SquareEquationSolution>;
 
 #endif // EQUATION_SOLUTION_H

@@ -13,7 +13,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(solver_test solver_test.cpp)
+add_executable(solver_test test/solver_test.cpp)
 
 add_dependencies(solver_test gtest)
 add_dependencies(solver_test gmock)
@@ -24,8 +24,18 @@ enable_testing()
 add_test(NAME    solver_test
          COMMAND solver_test)
 
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/)
+SET(SOURCES
+    ${CMAKE_SOURCE_DIR}/src/producer_consumer_pipe.h
+    ${CMAKE_SOURCE_DIR}/src/argument_parser.h
+    ${CMAKE_SOURCE_DIR}/src/solution_printer.h
+    ${CMAKE_SOURCE_DIR}/src/equation_issue.h
+    ${CMAKE_SOURCE_DIR}/src/equation_solution.h
+    ${CMAKE_SOURCE_DIR}/src/solver.h
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    )
 
-add_executable(SquareEquationSolver producer_consumer_pipe.h argument_parser.h solution_printer.h equation_issue.h equation_solution.h solver.h main.cpp)
+add_executable(${PROJECT_NAME} ${SOURCES})
 set (CMAKE_CXX_FLAGS "-pthread")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

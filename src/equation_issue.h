@@ -10,20 +10,19 @@
 /// @brief Structure for representation of square equation problem
 ///
 /// square problem in form: a*x^2 + b*x + c = 0
-struct SquareEquanationIssue
+struct SquareEquationIssue
 {
     double a{};
     double b{};
     double c{};
-    friend std::ostream& operator<< (std::ostream& os, const SquareEquanationIssue& val);
 };
 
-std::ostream& operator<< (std::ostream& os, const SquareEquanationIssue& val)
+std::ostream& operator<< (std::ostream& os, const SquareEquationIssue& val)
 {
     os << "(" << val.a << " " << val.b << " " << val.c << ")";
     return os;
 }
 
-using IssuePipe = ProducerConsumerPipe<SquareEquanationIssue>;
+using IssuePipe = ProducerConsumerPipe<SquareEquationIssue>;
 
 #endif // EQUATION_ISSUE_H

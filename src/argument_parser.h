@@ -31,13 +31,13 @@ public:
         // this thread wil be working until all arguments will be parsed
         while(current_arg_ < argc_)
         {
-            std::vector<SquareEquanationIssue> issues{};
+            std::vector<SquareEquationIssue> issues{};
             int triple_cnt{0};
 
             // parsing by triplets
             for(; ((current_arg_ + 2 < argc_) && (triple_cnt < parse_triple_cnt)); current_arg_= current_arg_ + 3, ++triple_cnt)
             {
-                SquareEquanationIssue issue{};
+                SquareEquationIssue issue{};
                 try
                 {
                     issue.a = std::stod(argv_[current_arg_]);
@@ -52,11 +52,10 @@ public:
                 issues.push_back(issue);
 
             }
-
             // parsing the last arguments which is not triplet
-            if(triple_cnt < parse_triple_cnt && current_arg_ > 1 && current_arg_ < argc_)
+            if(triple_cnt < parse_triple_cnt && current_arg_ > 0 && current_arg_ < argc_)
             {
-                SquareEquanationIssue issue{};
+                SquareEquationIssue issue{};
                 try
                 {
                     issue.a = std::stod(argv_[current_arg_]);
@@ -67,11 +66,10 @@ public:
                 catch(std::exception e)
                 {
                     // in case of conversion error just ignore the last arguments
+                    ++current_arg_;
                 }
                 issues.push_back(issue);
             }
-
-
             issue_pipe_.push(issues);
             std::this_thread::yield();
         }
