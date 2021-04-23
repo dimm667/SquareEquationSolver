@@ -4,7 +4,7 @@
 
 struct TestCase
 {
-    QuadraticEquanationIssue issue{};
+    SquareEquanationIssue issue{};
     std::vector<double> result{};
 };
 
@@ -13,7 +13,7 @@ class SolverTestFixture : public ::testing::Test, public ::testing::WithParamInt
 {
 public:
 
-    void Verify(const QuadraticEquanationIssue& issue, const std::vector<double>& roots)
+    void Verify(const SquareEquanationIssue& issue, const std::vector<double>& roots)
     {
         const auto producer_id{issue_pipe.registerAsProducer()};
         issue_pipe.push({issue});

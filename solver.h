@@ -6,7 +6,7 @@
 #include "equation_issue.h"
 #include "equation_solution.h"
 
-/// @brief Functor class for solving quadratic equations in the separate thread
+/// @brief Functor class for solving square equations in the separate thread
 ///
 /// Template parameter allows configure how many equation will be solved in each thread cycle
 /// Consumes messages from the issue pipe, produces messages to the solution pipe
@@ -33,7 +33,7 @@ public:
             const auto [task, no_more_issues] = issue_pipe_.pop(issues_count);
             if(!task.empty())
             {
-                std::vector<QuadraticEquanationSolution> result{};
+                std::vector<SquareEquanationSolution> result{};
                 for(const auto& issue : task)
                 {
                     result.push_back({issue, getRoots(issue)});
@@ -56,11 +56,11 @@ public:
 private:
     static constexpr double comparison_precision{1e-5};
 
-    /// @brief Function for solving quadratic equation
+    /// @brief Function for solving square equation
     ///
-    /// @param[in] issue quadratic equation problem to solve
+    /// @param[in] issue square equation problem to solve
     /// @returns roots of the equation (from 0 to 2)
-    static std::vector<double> getRoots(const QuadraticEquanationIssue& issue)
+    static std::vector<double> getRoots(const SquareEquanationIssue& issue)
     {
         std::vector<double> result{};
 
@@ -75,7 +75,7 @@ private:
         }
         else if((std::fabs(issue.a) > comparison_precision) && (std::fabs(issue.b) > comparison_precision) && (std::fabs(issue.c) < comparison_precision))
         {
-            // case of simplified quadratic equation
+            // case of simplified square equation
             result.push_back(0.0);
             result.push_back(-issue.b / issue.a);
         }
@@ -83,7 +83,7 @@ private:
         {
             const double descriminant = issue.b*issue.b - 4*issue.a*issue.c;
 
-            // case of regular quadratic equation
+            // case of regular square equation
             if(std::fabs(descriminant) < comparison_precision)
             {
                 // one root case

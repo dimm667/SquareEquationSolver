@@ -7,7 +7,7 @@
 /// @brief Functor class for parsing command line arguments in the separate thread
 ///
 /// Template parameter allows configure how many messages will be produced in each thread cycle
-/// Arguments parsed by triplets and converted to the quadratic equation issue
+/// Arguments parsed by triplets and converted to the square equation issue
 /// Produces messages to the issue pipe.
 template<int parse_triple_cnt>
 class ArgumentParser
@@ -31,13 +31,13 @@ public:
         // this thread wil be working until all arguments will be parsed
         while(current_arg_ < argc_)
         {
-            std::vector<QuadraticEquanationIssue> issues{};
+            std::vector<SquareEquanationIssue> issues{};
             int triple_cnt{0};
 
             // parsing by triplets
             for(; ((current_arg_ + 2 < argc_) && (triple_cnt < parse_triple_cnt)); current_arg_= current_arg_ + 3, ++triple_cnt)
             {
-                QuadraticEquanationIssue issue{};
+                SquareEquanationIssue issue{};
                 try
                 {
                     issue.a = std::stod(argv_[current_arg_]);
@@ -56,7 +56,7 @@ public:
             // parsing the last arguments which is not triplet
             if(triple_cnt < parse_triple_cnt && current_arg_ > 1 && current_arg_ < argc_)
             {
-                QuadraticEquanationIssue issue{};
+                SquareEquanationIssue issue{};
                 try
                 {
                     issue.a = std::stod(argv_[current_arg_]);

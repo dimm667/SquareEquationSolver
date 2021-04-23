@@ -7,23 +7,23 @@
 #include <tuple>
 #include "producer_consumer_pipe.h"
 
-/// @brief Structure for representation of quadratic equation problem
+/// @brief Structure for representation of square equation problem
 ///
-/// Quadratic problem in form: a*x^2 + b*x + c = 0
-struct QuadraticEquanationIssue
+/// square problem in form: a*x^2 + b*x + c = 0
+struct SquareEquanationIssue
 {
     double a{};
     double b{};
     double c{};
-    friend std::ostream& operator<< (std::ostream& os, const QuadraticEquanationIssue& val);
+    friend std::ostream& operator<< (std::ostream& os, const SquareEquanationIssue& val);
 };
 
-std::ostream& operator<< (std::ostream& os, const QuadraticEquanationIssue& val)
+std::ostream& operator<< (std::ostream& os, const SquareEquanationIssue& val)
 {
     os << "(" << val.a << " " << val.b << " " << val.c << ")";
     return os;
 }
 
-using IssuePipe = ProducerConsumerPipe<QuadraticEquanationIssue>;
+using IssuePipe = ProducerConsumerPipe<SquareEquanationIssue>;
 
 #endif // EQUATION_ISSUE_H

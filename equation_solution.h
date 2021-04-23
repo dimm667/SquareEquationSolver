@@ -6,18 +6,18 @@
 #include <vector>
 #include <optional>
 
-/// @brief Structure for representation of quadratic equation solution
+/// @brief Structure for representation of square equation solution
 ///
 /// Contains vector number of roots, there could be 0, 1 or 2 roots depends on issue.
 /// Contains also information about initial issue
-struct QuadraticEquanationSolution
+struct SquareEquanationSolution
 {
-    QuadraticEquanationIssue issue{};
+    SquareEquanationIssue issue{};
     std::vector<double> roots{};
-    friend std::ostream& operator<< (std::ostream& os, const QuadraticEquanationSolution& val);
+    friend std::ostream& operator<< (std::ostream& os, const SquareEquanationSolution& val);
 };
 
-std::ostream& operator<< (std::ostream& os, const QuadraticEquanationSolution& val)
+std::ostream& operator<< (std::ostream& os, const SquareEquanationSolution& val)
 {
     os << val.issue << " => ";
 
@@ -31,6 +31,6 @@ std::ostream& operator<< (std::ostream& os, const QuadraticEquanationSolution& v
     return os;
 }
 
-using SolutionPipe = ProducerConsumerPipe<QuadraticEquanationSolution>;
+using SolutionPipe = ProducerConsumerPipe<SquareEquanationSolution>;
 
 #endif // EQUATION_SOLUTION_H

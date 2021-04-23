@@ -4,7 +4,7 @@
 #include <thread>
 #include "equation_solution.h"
 
-/// @brief Functor class for printing quadratic equation solution to the standart output in the separate thread
+/// @brief Functor class for printing square equation solution to the standart output in the separate thread
 ///
 /// Template parameter allows configure how many messages will be consumed in each thread cycle
 /// Consumes messages from solution pipe

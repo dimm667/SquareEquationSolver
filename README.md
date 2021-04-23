@@ -1,5 +1,7 @@
 # SquareEquationSolver
 
+
+
 For building this project you should have cmake version 3.14.0 or higher.
 
 To build it:
